@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="bird_img_size">50dp</dimen>
-    <dimen name="airballoon_img_size">70dp</dimen>
+
     <dimen name="margin_default">15dp</dimen>
 </resources>

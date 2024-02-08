@@ -2,32 +2,31 @@ package com.example.hw1_airballoons;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     enum Direction {LEFT,RIGHT}
     private ShapeableImageView main_IMG_background;
-
     private static final int LANES = 3;
     private static final int MAX_OBSTACLES = 6;
     private ShapeableImageView[] main_IMG_hearts;
     private ShapeableImageView[][] main_IMG_obstacles;
-    private ShapeableImageView[] main_IMG_airballoons;
+    private ShapeableImageView[] main_IMG_airBalloons;
     private MaterialButton main_BTN_left;
     private MaterialButton main_BTN_right;
     private GameManager gameManager;
-
     private Timer timer;
-    private static final long DELAY = 1000;
+    private static final long DELAY = 400;
     private long startTime;
     private boolean timerOn = false;
 
@@ -36,34 +35,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        SignalManager.init(this);
         findViews();
-        gameManager = new GameManager(main_IMG_hearts.length,LANES);
-        initViews();
+        gameManager = new GameManager(main_IMG_hearts.length,LANES,MAX_OBSTACLES);
+        updateUI();
         startTimer();
         Glide
                 .with(this)
                 .load(R.drawable.sky)
                 .centerCrop()
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.background)
                 .into(main_IMG_background);
 
-        refreshUI(gameManager.getAirballoonIndex());
-
-        main_BTN_left.setOnClickListener(view->moveAirballoon(Direction.LEFT));
-        main_BTN_right.setOnClickListener(view->moveAirballoon(Direction.RIGHT));
-
-
-    }
-
-    private void moveAirballoon(Direction direction) {
-        if(direction == Direction.LEFT && gameManager.getAirballoonIndex() != 0){
-            refreshUI(gameManager.getAirballoonIndex()-1);
-
-        }
-        else if(direction == Direction.RIGHT && gameManager.getAirballoonIndex() != LANES-1){
-            refreshUI(gameManager.getAirballoonIndex()+1);
-        }
+        main_BTN_left.setOnClickListener(view-> moveAirBalloon(Direction.LEFT));
+        main_BTN_right.setOnClickListener(view-> moveAirBalloon(Direction.RIGHT));
 
     }
 
@@ -77,34 +62,59 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void refreshUI(int newCurrentIndex) {
-        // set all airballoons visibility to false except the one in the middle
-        gameManager.setAirballoonIndex(newCurrentIndex);
-        for(int i = 0; i < LANES; i++)
-        {
-            if(i != newCurrentIndex)
-                main_IMG_airballoons[i].setVisibility(View.INVISIBLE);
-            else main_IMG_airballoons[i].setVisibility(View.VISIBLE);
+    @Override
+    protected void onDestroy() {
+        timerOn = false;
+        timer.cancel();
+        super.onDestroy();
+    }
+
+
+    private void moveAirBalloon(Direction direction) {
+        if(direction == Direction.LEFT){
+            gameManager.moveAirBalloonLeft();
         }
-
-
+        else if(direction == Direction.RIGHT){
+            gameManager.moveAirBalloonRight();
+        }
+        updatePlayerLocation();
     }
 
-    private void updateTimerUI() {
-        Random rand = new Random();
-        int rnd_col = rand.nextInt(LANES);
-        main_IMG_obstacles[rnd_col][0].setVisibility(View.INVISIBLE);
-    }
 
-    private void initViews(){
-        // set all obstacles visibility to false
+    private void updateUI(){
+        gameManager.updateObstacles();
+        boolean[][] obstacles = gameManager.getMatObstacles();
         for(int i = 0; i < LANES; i++) {
             for(int j = 0; j < MAX_OBSTACLES; j++) {
-                main_IMG_obstacles[i][j].setVisibility(View.INVISIBLE);
+                main_IMG_obstacles[i][j].setVisibility(obstacles[i][j] ? View.VISIBLE : View.INVISIBLE);
             }
         }
-
+        updatePlayerLocation();
     }
+
+
+    private void updatePlayerLocation() {
+        boolean[] airBalloons = gameManager.getAirBalloons();
+        for(int i = 0; i < LANES; i++) {
+            main_IMG_airBalloons[i].setVisibility(airBalloons[i] ? View.VISIBLE : View.INVISIBLE);
+        }
+        /* update hearts */
+        int collisionsNum = gameManager.getCollisionsNum();
+        if(collisionsNum != 0 && collisionsNum < gameManager.getLife())
+            main_IMG_hearts[main_IMG_hearts.length - collisionsNum].setVisibility(View.INVISIBLE);
+        else if(collisionsNum == gameManager.getLife()) {
+            //changeActivity();
+            resetHearts();
+            Log.d("strikes", "" + collisionsNum);
+        }
+    }
+
+    private void resetHearts() {
+        for(int i = 0; i < gameManager.getLife(); i++)
+            main_IMG_hearts[i].setVisibility(View.VISIBLE);
+        gameManager.setCollisionsNum(0);
+    }
+
 
     private void findViews() {
         main_IMG_background = findViewById(R.id.main_IMG_background);
@@ -140,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         };
 
-        main_IMG_airballoons = new ShapeableImageView[]{
+        main_IMG_airBalloons = new ShapeableImageView[]{
                 findViewById(R.id.main_IMG_airballoon1),
                 findViewById(R.id.main_IMG_airballoon2),
                 findViewById(R.id.main_IMG_airballoon3)
@@ -151,17 +161,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void startTimer() {
         if(!timerOn) {
             timerOn = true;
             startTime = System.currentTimeMillis();
             timer = new Timer();
+
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    runOnUiThread(()->updateTimerUI()); // the only way to touch the views is via the UI thread (the main thread)
+                    runOnUiThread(()-> updateUI()); // the only way to touch the views is via the UI thread (the main thread)
                 }
             },0,DELAY);
         }
     }
+
+    /*
+    private void changeActivity() {
+        Intent endGameIntent = new Intent(this, EndGameActivity.class);
+        startActivity(endGameIntent);
+        timerOn = false;
+        timer.cancel();
+        finish();
+    }
+    */
+
 }

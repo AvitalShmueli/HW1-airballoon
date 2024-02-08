@@ -56,6 +56,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="30dp"
         android:layout_below="@id/hearts_Layout"
+        android:layout_above="@id/airBalloons_Layout"
         android:baselineAligned="false">
 
         <LinearLayout
@@ -66,48 +67,54 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_00"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_01"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_02"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_03"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_04"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_05"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
@@ -122,47 +129,53 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_10"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_11"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_12"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_13"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_14"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_15"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
@@ -177,48 +190,54 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_20"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_21"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_22"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_23"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_24"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_IMG_bird_25"
-                android:layout_width="@dimen/bird_img_size"
-                android:layout_height="@dimen/bird_img_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/bird" />
@@ -229,12 +248,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/airballoons_Layout"
+        android:id="@+id/airBalloons_Layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/airballoon_img_size"
-        android:layout_below="@id/obstacles_Layout"
-        android:layout_marginTop="-3dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="80dp"
+        android:layout_above="@id/buttons"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
         android:orientation="horizontal">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -242,7 +261,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_default"
             android:layout_weight="1"
             android:src="@drawable/airballoon" />
 
@@ -251,7 +270,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_default"
             android:layout_weight="1"
             android:src="@drawable/airballoon" />
 
@@ -260,43 +279,38 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/margin_default"
             android:layout_weight="1"
             android:src="@drawable/airballoon" />
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/airballoons_Layout"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/margin_default"
         android:layout_marginHorizontal="@dimen/margin_default"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="@dimen/margin_default">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/main_BTN_left"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:background="@drawable/baseline_arrow_circle_left_24"
-            app:tint="@color/purple900"
-            />
-
-        <View
-            android:layout_width="200dp"
-            android:layout_height="0dp" />
+            android:layout_alignParentLeft="true"
+            app:tint="@color/purple900"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/main_BTN_right"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_alignParentRight="true"
             android:background="@drawable/baseline_arrow_circle_right_24"
             app:tint="@color/purple900"
-        />
+            tools:ignore="RelativeOverlap" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
 
 </RelativeLayout>
