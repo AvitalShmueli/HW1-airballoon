@@ -11,7 +11,7 @@ public class GameManager {
     private boolean[][] matObstacles;
     private boolean[] arrAirBalloons;
     private int collisionsNum;
-    private Random rand;
+    private final Random rand;
     private int obstacleNum;
 
     //private ArrayList<Obstacle> allObstacles;
@@ -86,12 +86,6 @@ public class GameManager {
     }
 
     public void updateObstacles(){
-        /* Add an obstacle every two timer intervals */
-        if(obstacleNum % 2 == 0) {
-            int rnd_col = rand.nextInt(lanes);
-            matObstacles[rnd_col][0] = true;
-        }
-
         for(int i = 0; i < lanes; i++) {
             for(int j = max_obstacles-1; j > 0; j--) {
                 if(j == max_obstacles - 1 && matObstacles[i][j]) {
@@ -106,6 +100,11 @@ public class GameManager {
                     matObstacles[i][j] = true;
                 }
             }
+        }
+        /* Add an obstacle every two timer intervals */
+        if(obstacleNum % 2 == 0) {
+            int rnd_col = rand.nextInt(lanes);
+            matObstacles[rnd_col][0] = true;
         }
         obstacleNum++;
     }
@@ -131,7 +130,7 @@ public class GameManager {
                 arrAirBalloons[i] = false;
             else {
                 arrAirBalloons[i] = true;
-                checkCollision();
+                //checkCollision();
             }
         }
 

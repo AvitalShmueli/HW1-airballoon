@@ -2,7 +2,7 @@ package com.example.hw1_airballoons;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+//import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private GameManager gameManager;
     private Timer timer;
     private static final long DELAY = 400;
-    private long startTime;
     private boolean timerOn = false;
 
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         findViews();
         gameManager = new GameManager(main_IMG_hearts.length,LANES,MAX_OBSTACLES);
         updateUI();
-        startTimer();
+
         Glide
                 .with(this)
                 .load(R.drawable.sky)
@@ -47,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 .placeholder(R.drawable.background)
                 .into(main_IMG_background);
 
+        startTimer();
         main_BTN_left.setOnClickListener(view-> moveAirBalloon(Direction.LEFT));
         main_BTN_right.setOnClickListener(view-> moveAirBalloon(Direction.RIGHT));
 
@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
     private void startTimer() {
         if(!timerOn) {
             timerOn = true;
-            startTime = System.currentTimeMillis();
             timer = new Timer();
 
             timer.schedule(new TimerTask() {
