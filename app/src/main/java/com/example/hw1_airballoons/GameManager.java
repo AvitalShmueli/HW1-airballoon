@@ -1,5 +1,4 @@
 package com.example.hw1_airballoons;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -12,9 +11,8 @@ public class GameManager {
     private boolean[] arrAirBalloons;
     private int collisionsNum;
     private final Random rand;
-    private int obstacleNum;
+    private int timerLaps;
 
-    //private ArrayList<Obstacle> allObstacles;
 
     public GameManager() {
         this(3,3,6);
@@ -26,7 +24,7 @@ public class GameManager {
         this.lanes = lanes;
         this.max_obstacles = max_obstacles;
         this.collisionsNum = 0;
-        this.obstacleNum = 0;
+        this.timerLaps = 0;
         rand = new Random();
         initObstacles();
         initAirBalloons();
@@ -102,11 +100,11 @@ public class GameManager {
             }
         }
         /* Add an obstacle every two timer intervals */
-        if(obstacleNum % 2 == 0) {
+        if(timerLaps % 2 == 0) {
             int rnd_col = rand.nextInt(lanes);
             matObstacles[rnd_col][0] = true;
         }
-        obstacleNum++;
+        timerLaps++;
     }
 
     private void initAirBalloons() {
@@ -128,12 +126,8 @@ public class GameManager {
         {
             if(i != airBalloonIndex)
                 arrAirBalloons[i] = false;
-            else {
-                arrAirBalloons[i] = true;
-                //checkCollision();
-            }
+            else arrAirBalloons[i] = true;
         }
-
     }
 
     public void moveAirBalloonRight(){
@@ -151,12 +145,10 @@ public class GameManager {
     }
 
     private void checkCollision(){
-        Log.d("collisions check", "["+airBalloonIndex+"["+(max_obstacles-1)+"]");
         if(matObstacles[airBalloonIndex][max_obstacles-1] && collisionsNum < life){
             this.collisionsNum++;
             SignalManager.getInstance().vibrate(200);
             SignalManager.getInstance().toast("Oops");
-            Log.d("collisionsNum updated", ""+collisionsNum);
         }
     }
 

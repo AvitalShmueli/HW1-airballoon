@@ -2,9 +2,8 @@ package com.example.hw1_airballoons;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//import android.content.Intent;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -103,16 +102,8 @@ public class MainActivity extends AppCompatActivity {
         if(collisionsNum != 0 && collisionsNum < gameManager.getLife())
             main_IMG_hearts[main_IMG_hearts.length - collisionsNum].setVisibility(View.INVISIBLE);
         else if(collisionsNum == gameManager.getLife()) {
-            //changeActivity();
-            resetHearts();
-            Log.d("strikes", "" + collisionsNum);
+            changeActivity();
         }
-    }
-
-    private void resetHearts() {
-        for(int i = 0; i < gameManager.getLife(); i++)
-            main_IMG_hearts[i].setVisibility(View.VISIBLE);
-        gameManager.setCollisionsNum(0);
     }
 
 
@@ -166,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
         if(!timerOn) {
             timerOn = true;
             timer = new Timer();
-
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -176,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
+
     private void changeActivity() {
         Intent endGameIntent = new Intent(this, EndGameActivity.class);
         startActivity(endGameIntent);
@@ -184,6 +174,6 @@ public class MainActivity extends AppCompatActivity {
         timer.cancel();
         finish();
     }
-    */
+
 
 }

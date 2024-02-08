@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HW1 - Air Balloons</string>
+    <string name="game_over">GAME OVER</string>
 </resources>
