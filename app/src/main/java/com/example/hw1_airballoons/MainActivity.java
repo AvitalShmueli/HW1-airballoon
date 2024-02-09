@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton main_BTN_right;
     private GameManager gameManager;
     private Timer timer;
-    private static final long DELAY = 400;
+    private static final long DELAY = 350;
     private boolean timerOn = false;
 
 
@@ -68,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimer();
+    }
 
     private void moveAirBalloon(Direction direction) {
         if(direction == Direction.LEFT){
