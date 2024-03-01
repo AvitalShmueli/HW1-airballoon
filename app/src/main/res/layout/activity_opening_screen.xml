@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/open_IMG_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/sky" />
+
+    <RelativeLayout
+        android:id="@+id/open_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/open_LBL_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_default"
+            android:text="@string/opening_screen_title"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/end_IMG_airballoon"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:paddingTop="20dp"
+            android:layout_marginTop="@dimen/margin_default"
+            app:srcCompat="@drawable/airballoon"
+            android:layout_below="@id/open_LBL_title"/>
+        <Space
+            android:id="@+id/end_SPACE_space"
+            android:layout_width="match_parent"
+            android:layout_below="@id/end_IMG_airballoon"
+            android:layout_height="50dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open_BTN_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@string/buttons_mode_text"
+            android:layout_below="@id/end_SPACE_space"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentStart="true"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open_BTN_sensors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@string/sensors_mode_text"
+            android:layout_marginEnd="20dp"
+            android:layout_below="@id/end_SPACE_space"
+            android:layout_alignParentEnd="true"/>
+
+
+
+
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/open_BTN_records"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/open_container"
+        android:layout_marginEnd="30dp"
+        android:text="@string/records_table_text" />
+
+
+</RelativeLayout>
