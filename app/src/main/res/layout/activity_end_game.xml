@@ -14,6 +14,7 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/sky" />
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,25 +22,32 @@
         android:gravity="center"
         tools:context=".EndGameActivity">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/end_LBL_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/game_over"
-        android:textColor="@color/black"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/end_LBL_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/game_over"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-
-        android:id="@+id/end_IMG_airballoon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/end_LBL_text"
-        android:layout_margin="50dp"
-        app:srcCompat="@drawable/airballoon" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/end_IMG_airballoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/end_LBL_text"
+            android:layout_margin="50dp"
+            app:srcCompat="@drawable/airballoon" />
 
     </RelativeLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/end_BTN_restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:text="@string/start_again" />
 
 </RelativeLayout>

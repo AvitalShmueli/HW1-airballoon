@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="margin_default">15dp</dimen>
+    <dimen name="data_elevation">5dp</dimen>
+    <dimen name="data_corner_radius">20dp</dimen>
+    <dimen name="data_margin_vertical">5dp</dimen>
+    <dimen name="location_width">25dp</dimen>
+    <dimen name="location_height">25dp</dimen>
+    <dimen name="text_size">18sp</dimen>
 </resources>
