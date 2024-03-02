@@ -78,22 +78,19 @@ public class EndGameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         name = Objects.requireNonNull(dialog_TXT_name.getText()).toString();
-                        Log.d("name from dialog = ", name);
                         RecordsList fromSP = new Gson().fromJson(SharedPreferencesManager.getInstance().getString(RecordsTableActivity.RECORDS_TABLE, ""), RecordsList.class);
                         if (fromSP == null) {
                             fromSP = new RecordsList();
                             fromSP.setListName(RecordsTableActivity.RECORDS_TABLE);
                         }
                         Log.d("RECORDS_TABLE from SP", fromSP.toString());
-                        double lan,lon;
-                        if(currentLocation != null)
-                        {
+                        double lan, lon;
+                        if (currentLocation != null) {
                             lan = currentLocation.getLatitude();
                             lon = currentLocation.getLongitude();
-                        }
-                        else{
-                            lan =App.DEFAULT_LAN;
-                            lon =App.DEFAULT_LON;
+                        } else {
+                            lan = App.DEFAULT_LAN;
+                            lon = App.DEFAULT_LON;
                         }
                         fromSP.addRecord(new Record().
                                 setName(name).
@@ -104,9 +101,7 @@ public class EndGameActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         String recordsListAsJson = gson.toJson(fromSP);
                         SharedPreferencesManager.getInstance().putString(RecordsTableActivity.RECORDS_TABLE, recordsListAsJson);
-                        Log.d("JSON", recordsListAsJson);
                         Log.d("RECORDS_TABLE from SP", fromSP.toString());
-
                         dialog.dismiss();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -133,24 +128,24 @@ public class EndGameActivity extends AppCompatActivity {
 
     private void getDeviceLocation() {
         Log.d("getDeviceLocation", "getting the current devices current location");
-        String[] permissions = {FINE_LOCATION,COARSE_LOCATION};
+        String[] permissions = {FINE_LOCATION, COARSE_LOCATION};
         boolean mLocationPermissionsGranted = false;
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(), COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
-            } else{
-                ActivityCompat.requestPermissions(this,permissions,LOCATION_PERMISSION_REQUEST_CODE);
+            } else {
+                ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
                 return;
             }
-        } else{
-            ActivityCompat.requestPermissions(this,permissions,LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
             return;
         }
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location != null) {
+                if (location != null) {
                     currentLocation = location;
                 }
             }
@@ -158,28 +153,13 @@ public class EndGameActivity extends AppCompatActivity {
 
     }
 
-    /*
-    private void getLocationPermission(){
-        String[] permissions = {FINE_LOCATION,COARSE_LOCATION};
 
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                mLocationPermissionsGranted = true;
-            } else{
-                ActivityCompat.requestPermissions(this,permissions,LOCATION_PERMISSION_REQUEST_CODE);
-            }
-        } else{
-            ActivityCompat.requestPermissions(this,permissions,LOCATION_PERMISSION_REQUEST_CODE);
-        }
-
-    }
-   */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == LOCATION_PERMISSION_REQUEST_CODE){
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0) {
-                for(int i = 0; i < grantResults.length; i++) {
+                for (int i = 0; i < grantResults.length; i++) {
                     if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                         SignalManager.getInstance().toast("Location permissions are missing");
                         return;

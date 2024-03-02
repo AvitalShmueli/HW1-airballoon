@@ -23,8 +23,6 @@ public class RecordsTableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_records_table);
 
         findViews();
-        //Intent previousScreen = getIntent();
-
 
         mapsFragment = new MapsFragment();
         recordsListFragment = new RecordsListFragment();
@@ -32,7 +30,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         recordsListFragment.setCallbackHighScoreClicked(new Callback_highScoreClicked() {
             @Override
             public void highScoreClicked(String title, double lat, double lon) {
-                if(mapsFragment != null)
+                if (mapsFragment != null)
                     mapsFragment.zoom(title, lat, lon);
             }
         });
@@ -40,13 +38,15 @@ public class RecordsTableActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.records_FRAME_list, recordsListFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.records_FRAME_map, mapsFragment).commit();
 
-        records_BTN_back.setOnClickListener(view-> backToOpenningScreen());
+        records_BTN_back.setOnClickListener(view -> backToOpenningScreen());
 
     }
+
 
     private void findViews() {
         records_BTN_back = findViewById(R.id.records_BTN_back);
     }
+
 
     private void backToOpenningScreen() {
         Intent openingScreenActivity = new Intent(this, OpeningScreenActivity.class);

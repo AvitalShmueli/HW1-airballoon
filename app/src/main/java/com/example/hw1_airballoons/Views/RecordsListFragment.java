@@ -16,6 +16,7 @@ import com.example.hw1_airballoons.Interfaces.Callback_highScoreClicked;
 import com.example.hw1_airballoons.Models.RecordsList;
 import com.example.hw1_airballoons.R;
 import com.example.hw1_airballoons.Utilities.SharedPreferencesManager;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 
 
@@ -23,6 +24,7 @@ public class RecordsListFragment extends Fragment {
     public static final String RECORDS_TABLE = "RECORDS";
     private RecyclerView list_LST_records;
     private Callback_highScoreClicked callbackHighScoreClicked;
+    private MaterialTextView list_LBL_noRecords;
 
 
     public RecordsListFragment() {
@@ -44,14 +46,18 @@ public class RecordsListFragment extends Fragment {
 
     private void findViews(View view) {
         list_LST_records = view.findViewById(R.id.list_LST_records);
+        list_LBL_noRecords = view.findViewById(R.id.list_LBL_noRecords);
     }
 
     private void initViews(View view) {
         RecordsList fromSP = new Gson().fromJson(SharedPreferencesManager.getInstance().getString(RECORDS_TABLE, ""), RecordsList.class);
         RecordsList topTen = null;
-        if(fromSP != null) {
+        if (fromSP != null) {
             Log.d("RECORDS_TABLE from SP", fromSP.toString());
             topTen = new RecordsList().setRecordsArrayList(fromSP.getTopTenRecords());
+            list_LBL_noRecords.setVisibility(View.INVISIBLE);
+        } else {
+            list_LBL_noRecords.setVisibility(View.VISIBLE);
         }
         RecordAdapter recordAdapter = new RecordAdapter(view.getContext(), topTen);
         recordAdapter.setCallbackHighScoreClicked(callbackHighScoreClicked);

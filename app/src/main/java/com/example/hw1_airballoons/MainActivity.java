@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.example.hw1_airballoons.Interfaces.Callback_tilt;
+import com.example.hw1_airballoons.Utilities.PlaySound;
 import com.example.hw1_airballoons.Utilities.TiltDetector;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -19,6 +20,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     enum Direction {LEFT, RIGHT}
+
     public static final String KEY_MODE = "KEY_GAME_MODE";
     private ShapeableImageView main_IMG_background;
     private static final int LANES = 5;
@@ -35,21 +37,26 @@ public class MainActivity extends AppCompatActivity {
     private boolean timerOn = false;
     private TiltDetector tiltDetector;
     private MaterialTextView main_LBL_sensorsText;
+    private PlaySound crashSound;
+    private PlaySound collectSound;
+    private PlaySound heartSound;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //SignalManager.init(this);
+
+        crashSound = new PlaySound(this, R.raw.crash);
+        collectSound = new PlaySound(this, R.raw.collect_points);
+        heartSound = new PlaySound(this, R.raw.power_up);
 
         Intent previousScreen = getIntent();
         int mode = previousScreen.getIntExtra(KEY_MODE, 0);
-        Log.d("GameMode = " + mode, "GameMode = " +mode);
 
         findViews();
 
-        gameManager = new GameManager(main_IMG_hearts.length, LANES, MAX_OBSTACLES);
+        gameManager = new GameManager(main_IMG_hearts.length, LANES, MAX_OBSTACLES, crashSound, collectSound, heartSound);
         updateUI();
 
         Glide
@@ -68,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
             main_LBL_sensorsText.setVisibility(View.INVISIBLE);
             main_BTN_left.setOnClickListener(view -> moveAirBalloon(Direction.LEFT));
             main_BTN_right.setOnClickListener(view -> moveAirBalloon(Direction.RIGHT));
-        }
-        else {
+        } else {
             Log.d("start game GameMode = " + mode, "sensors");
             main_BTN_left.setVisibility(View.INVISIBLE);
             main_BTN_right.setVisibility(View.INVISIBLE);
@@ -107,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         timerOn = false;
         timer.cancel();
+        crashSound.stop();
+        collectSound.stop();
+        heartSound.stop();
         super.onDestroy();
     }
 
@@ -119,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -127,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             startTimer();
         }
     }
+
 
     private void moveAirBalloon(Direction direction) {
         if (direction == Direction.LEFT) {
@@ -137,19 +148,6 @@ public class MainActivity extends AppCompatActivity {
         updatePlayerLocation();
     }
 
-
-    /*
-    private void updateUI(){
-        gameManager.updateObstacles();
-        boolean[][] obstacles = gameManager.getMatObstacles();
-        for(int i = 0; i < LANES; i++) {
-            for(int j = 0; j < MAX_OBSTACLES; j++) {
-                main_IMG_obstacles[i][j].setVisibility(obstacles[i][j] ? View.VISIBLE : View.INVISIBLE);
-            }
-        }
-        updatePlayerLocation();
-    }
-    */
 
     private void updateUI() {
         gameManager.updateObstacles();
@@ -175,14 +173,13 @@ public class MainActivity extends AppCompatActivity {
             main_IMG_airBalloons[i].setVisibility(airBalloons[i] ? View.VISIBLE : View.INVISIBLE);
         }
         main_LBL_score.setText(String.valueOf(gameManager.getScore()));
+
         /* update hearts */
         int collisionsNum = gameManager.getCollisionsNum();
         int previousCollisionsNum = gameManager.getPreviousCollisionsNum();
         int life = gameManager.getLife();
-
         if (collisionsNum > previousCollisionsNum) {
             if (collisionsNum != 0 && collisionsNum < life) {
-                Log.d("hearts - collisionsNum | previousCollisionsNum", collisionsNum + "|" + previousCollisionsNum);
                 main_IMG_hearts[main_IMG_hearts.length - collisionsNum].setVisibility(View.INVISIBLE);
             } else if (collisionsNum == life) {
                 main_IMG_hearts[main_IMG_hearts.length - collisionsNum].setVisibility(View.INVISIBLE);
@@ -190,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (collisionsNum < previousCollisionsNum) {
             if (collisionsNum >= 0 && collisionsNum < life) {
-                Log.d("hearts - collisionsNum | previousCollisionsNum", collisionsNum + "|" + previousCollisionsNum);
                 main_IMG_hearts[main_IMG_hearts.length - collisionsNum - 1].setVisibility(View.VISIBLE);
             }
         }

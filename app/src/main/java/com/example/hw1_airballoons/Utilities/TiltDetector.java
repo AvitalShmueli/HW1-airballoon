@@ -5,7 +5,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 
 import com.example.hw1_airballoons.Interfaces.Callback_tilt;
 
@@ -49,8 +48,7 @@ public class TiltDetector {
                 if (callbackTilt != null) {
                     callbackTilt.tiltRight();
                 }
-            }
-            else if(x > 1.0){
+            } else if (x > 1.0) {
                 if (callbackTilt != null) {
                     callbackTilt.tiltLeft();
                 }
@@ -58,14 +56,15 @@ public class TiltDetector {
         }
     }
 
-    public void start(){
+    public void start() {
         sensorManager.registerListener(
                 sensorEventListener,
                 sensor,
                 SensorManager.SENSOR_DELAY_NORMAL
         );
     }
-    public void stop(){
+
+    public void stop() {
         sensorManager.unregisterListener(
                 sensorEventListener,
                 sensor

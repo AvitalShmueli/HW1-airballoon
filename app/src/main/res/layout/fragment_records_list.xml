@@ -10,7 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/list_LBL_noRecords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="No records have been set yet...\n\n Be the first one!"
+        android:textColor="@color/deep_purple_500"
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
 
     <!--com.google.android.material.textview.MaterialTextView
