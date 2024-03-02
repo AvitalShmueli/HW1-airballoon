@@ -69,7 +69,7 @@ public class MapsFragment extends Fragment {
         if (mMap != null) {
             selectedMarker.remove();
             LatLng marker = new LatLng(lat, lon);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 15));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 18));
             selectedMarker = mMap.addMarker(new MarkerOptions().title(title).position(marker));
         }
     }
