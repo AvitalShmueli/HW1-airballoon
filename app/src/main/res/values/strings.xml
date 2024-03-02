@@ -5,8 +5,6 @@
     <string name="buttons_mode_text">Buttons Mode</string>
     <string name="sensors_mode_text">Sensors Mode</string>
     <string name="records_table_text">Records Table</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="start_again">Start Again</string>
+    <string name="start_again">Return to Main Menu</string>
     <string name="title_activity_maps">MapsActivity</string>
 </resources>
