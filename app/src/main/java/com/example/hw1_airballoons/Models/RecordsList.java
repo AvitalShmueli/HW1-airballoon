@@ -33,6 +33,14 @@ public class RecordsList {
         return recordsArrayList;
     }
 
+    public ArrayList<Record> getTopTenRecords() {
+        ArrayList<Record> topTen = new ArrayList<>();
+        for(int i = 0; i < 10 && i < recordsArrayList.size(); i++) {
+            topTen.add(recordsArrayList.get(i));
+        }
+        return topTen;
+    }
+
     public RecordsList setRecordsArrayList(ArrayList<Record> recordsArrayList) {
         this.recordsArrayList = recordsArrayList;
         //this.recordsArrayList.sort(recordComparator);

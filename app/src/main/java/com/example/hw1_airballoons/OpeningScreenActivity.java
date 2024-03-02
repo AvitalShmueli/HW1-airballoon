@@ -1,10 +1,15 @@
 package com.example.hw1_airballoons;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.Manifest;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
@@ -17,6 +22,8 @@ public class OpeningScreenActivity extends AppCompatActivity {
     private MaterialButton open_BTN_buttons;
     private MaterialButton open_BTN_sensors;
     private MaterialButton open_BTN_records;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +43,7 @@ public class OpeningScreenActivity extends AppCompatActivity {
     }
 
     private void viewRecordsTable() {
-        Intent recordsTableActivity = new Intent(this, RecordsTable.class);
+        Intent recordsTableActivity = new Intent(this, RecordsTableActivity.class);
         startActivity(recordsTableActivity);
         finish();
 

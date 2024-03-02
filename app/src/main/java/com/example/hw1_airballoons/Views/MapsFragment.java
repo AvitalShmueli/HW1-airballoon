@@ -9,17 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hw1_airballoons.App;
 import com.example.hw1_airballoons.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.textview.MaterialTextView;
 
 public class MapsFragment extends Fragment {
-    private MaterialTextView map_LBL_title;
+    private GoogleMap mMap;
+    private Marker selectedMarker;
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
@@ -33,9 +36,10 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            mMap = googleMap;
+            LatLng Afeka = new LatLng(App.DEFAULT_LAN, App.DEFAULT_LON);
+            selectedMarker = googleMap.addMarker(new MarkerOptions().position(Afeka).title("Marker in Afeka"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(Afeka));
         }
     };
 
@@ -46,7 +50,6 @@ public class MapsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-        findViews(view);
         return view;
     }
 
@@ -62,12 +65,14 @@ public class MapsFragment extends Fragment {
     }
 
 
-    private void findViews(View view) {
-        map_LBL_title = view.findViewById(R.id.map_LBL_title);
-    }
 
-    public void zoom(double lat, double lon){
-        map_LBL_title.setText(lat + "\n" + lon);
+    public void zoom(String title, double lat, double lon){
+        if (mMap != null) {
+            selectedMarker.remove();
+            LatLng marker = new LatLng(lat, lon);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 15));
+            selectedMarker = mMap.addMarker(new MarkerOptions().title(title).position(marker));
+        }
     }
 
 }

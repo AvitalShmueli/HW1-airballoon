@@ -22,6 +22,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
     private Callback_highScoreClicked callbackHighScoreClicked;
 
 
+
     public RecordAdapter(Context context, RecordsList recordArrayList) {
         this.context = context;
         this.recordArrayList = recordArrayList;
@@ -46,6 +47,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         holder.record_LBL_score.setText(String.valueOf(record.getScore()));
         holder.record_LBL_latitude.setText(String.valueOf(record.getLatitude()));
         holder.record_LBL_longitude.setText(String.valueOf(record.getLongitude()));
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(callbackHighScoreClicked != null)
+                    callbackHighScoreClicked.highScoreClicked(record.getName(),record.getLatitude(),record.getLongitude());
+            }
+        };
+        holder.record_LBL_name.setOnClickListener(listener);
+        holder.record_LBL_score.setOnClickListener(listener);
     }
 
     @Override
@@ -53,7 +63,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
         return recordArrayList == null ? 0 :  recordArrayList.getSize();
     }
 
-    private Record getItem(int position){
+    public Record getItem(int position){
         return recordArrayList.get(position);
     }
 

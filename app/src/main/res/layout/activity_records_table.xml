@@ -5,23 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/light_pink">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/records_BTN_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/baseline_arrow_back_24"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        app:tint="@color/purple900"/>
 
     <FrameLayout
-        android:id="@+id/main_FRAME_list"
+        android:id="@+id/records_FRAME_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/pink100"
-        />
+        android:background="@color/light_pink"/>
 
     <FrameLayout
-        android:id="@+id/main_FRAME_map"
+        android:id="@+id/records_FRAME_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/blue300"
+        android:background="@color/light_pink"
         />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

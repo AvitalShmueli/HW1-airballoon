@@ -19,7 +19,6 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     enum Direction {LEFT, RIGHT}
-
     public static final String KEY_MODE = "KEY_GAME_MODE";
     private ShapeableImageView main_IMG_background;
     private static final int LANES = 5;
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TiltDetector tiltDetector;
     private MaterialTextView main_LBL_sensorsText;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent previousScreen = getIntent();
         int mode = previousScreen.getIntExtra(KEY_MODE, 0);
-        Log.d("GameMode = " + String.valueOf(mode), "GameMode = " + String.valueOf(mode));
+        Log.d("GameMode = " + mode, "GameMode = " +mode);
+
         findViews();
 
         gameManager = new GameManager(main_IMG_hearts.length, LANES, MAX_OBSTACLES);
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         startTimer();
 
         if (mode == OpeningScreenActivity.GameMode.BUTTONS.ordinal()) {
-            Log.d("start game GameMode = " + String.valueOf(mode), "buttons");
+            Log.d("start game GameMode = " + mode, "buttons");
             main_BTN_left.setVisibility(View.VISIBLE);
             main_BTN_right.setVisibility(View.VISIBLE);
             main_LBL_sensorsText.setVisibility(View.INVISIBLE);
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             main_BTN_right.setOnClickListener(view -> moveAirBalloon(Direction.RIGHT));
         }
         else {
-            Log.d("start game GameMode = " + String.valueOf(mode), "sensors");
+            Log.d("start game GameMode = " + mode, "sensors");
             main_BTN_left.setVisibility(View.INVISIBLE);
             main_BTN_right.setVisibility(View.INVISIBLE);
             main_LBL_sensorsText.setVisibility(View.VISIBLE);
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < LANES; i++) {
             main_IMG_airBalloons[i].setVisibility(airBalloons[i] ? View.VISIBLE : View.INVISIBLE);
         }
-        main_LBL_score.setText(gameManager.getScore() + "");
+        main_LBL_score.setText(String.valueOf(gameManager.getScore()));
         /* update hearts */
         int collisionsNum = gameManager.getCollisionsNum();
         int previousCollisionsNum = gameManager.getPreviousCollisionsNum();
@@ -184,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("hearts - collisionsNum | previousCollisionsNum", collisionsNum + "|" + previousCollisionsNum);
                 main_IMG_hearts[main_IMG_hearts.length - collisionsNum].setVisibility(View.INVISIBLE);
             } else if (collisionsNum == life) {
+                main_IMG_hearts[main_IMG_hearts.length - collisionsNum].setVisibility(View.INVISIBLE);
                 changeActivity();
             }
         } else if (collisionsNum < previousCollisionsNum) {
