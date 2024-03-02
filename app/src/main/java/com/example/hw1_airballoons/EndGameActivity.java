@@ -76,51 +76,51 @@ public class EndGameActivity extends AppCompatActivity {
         if (fromSP == null) {
             fromSP = new RecordsList();
             fromSP.setListName(RecordsTableActivity.RECORDS_TABLE);
+        }
+        topTen = new RecordsList().setRecordsArrayList(fromSP.getTopTenRecords());
+        if (topTen.getSize() == 0 || score > topTen.get(topTen.getSize() - 1).getScore()) {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            getDeviceLocation();
+            String dialogTitle = "You have scored " + score + " points";
+            dialog_LBL_score.setText(dialogTitle);
+            AlertDialog alertDialog = new MaterialAlertDialogBuilder(this).setView(dialogView)
+                    .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            name = Objects.requireNonNull(dialog_TXT_name.getText()).toString();
+
+                            Log.d("RECORDS_TABLE from SP", fromSP.toString());
+                            double lan, lon;
+                            if (currentLocation != null) {
+                                lan = currentLocation.getLatitude();
+                                lon = currentLocation.getLongitude();
+                            } else {
+                                lan = App.DEFAULT_LAN;
+                                lon = App.DEFAULT_LON;
+                            }
+                            fromSP.addRecord(new Record().
+                                    setName(name).
+                                    setScore(score).
+                                    setLatitude(lan).
+                                    setLongitude(lon));
+
+                            Gson gson = new Gson();
+                            String recordsListAsJson = gson.toJson(fromSP);
+                            SharedPreferencesManager.getInstance().putString(RecordsTableActivity.RECORDS_TABLE, recordsListAsJson);
+                            Log.d("RECORDS_TABLE from SP", fromSP.toString());
+                            dialog.dismiss();
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            alertDialog.show();
         } else {
-            topTen = new RecordsList().setRecordsArrayList(fromSP.getTopTenRecords());
-            if (score > topTen.get(topTen.getSize() - 1).getScore()) {
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-                getDeviceLocation();
-                String dialogTitle = "You have scored " + score + " points";
-                dialog_LBL_score.setText(dialogTitle);
-                AlertDialog alertDialog = new MaterialAlertDialogBuilder(this).setView(dialogView)
-                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                name = Objects.requireNonNull(dialog_TXT_name.getText()).toString();
+            String strGameOver = getString(R.string.game_over) + "\n" + score;
+            end_LBL_text.setText(strGameOver);
 
-                                Log.d("RECORDS_TABLE from SP", fromSP.toString());
-                                double lan, lon;
-                                if (currentLocation != null) {
-                                    lan = currentLocation.getLatitude();
-                                    lon = currentLocation.getLongitude();
-                                } else {
-                                    lan = App.DEFAULT_LAN;
-                                    lon = App.DEFAULT_LON;
-                                }
-                                fromSP.addRecord(new Record().
-                                        setName(name).
-                                        setScore(score).
-                                        setLatitude(lan).
-                                        setLongitude(lon));
-
-                                Gson gson = new Gson();
-                                String recordsListAsJson = gson.toJson(fromSP);
-                                SharedPreferencesManager.getInstance().putString(RecordsTableActivity.RECORDS_TABLE, recordsListAsJson);
-                                Log.d("RECORDS_TABLE from SP", fromSP.toString());
-                                dialog.dismiss();
-                            }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                dialog.dismiss();
-                            }
-                        }).create();
-                alertDialog.show();
-            } else {
-                String strGameOver = getString(R.string.game_over) + "\n" + score;
-                end_LBL_text.setText(strGameOver);
-            }
         }
 
 

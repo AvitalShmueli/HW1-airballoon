@@ -6,16 +6,6 @@ import java.util.Comparator;
 public class RecordsList {
     private String listName = "";
     private ArrayList<Record> recordsArrayList = new ArrayList<>();
-    /*private final Comparator<Record> recordComparator = new Comparator<Record>() {
-        @Override
-        public int compare(Record o1, Record o2) {
-            if(o1.getScore() < o2.getScore())
-                return 1;
-            else if(o1.getScore() == o2.getScore())
-                return 0;
-            return -1;
-        }
-    };*/
 
     public RecordsList() {
     }
@@ -43,7 +33,6 @@ public class RecordsList {
 
     public RecordsList setRecordsArrayList(ArrayList<Record> recordsArrayList) {
         this.recordsArrayList = recordsArrayList;
-        //this.recordsArrayList.sort(recordComparator);
         return this;
     }
 
