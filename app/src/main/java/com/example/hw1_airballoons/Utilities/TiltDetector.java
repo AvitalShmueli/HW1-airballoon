@@ -12,7 +12,6 @@ public class TiltDetector {
     private SensorManager sensorManager;
     private Sensor sensor;
     private SensorEventListener sensorEventListener;
-    private double lastX = 0;
     private long timestamp = 0l;
 
 
@@ -30,8 +29,7 @@ public class TiltDetector {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 float x = event.values[0];
-                float y = event.values[1];
-                calculateTilt(x, y);
+                calculateTilt(x);
             }
 
             @Override
@@ -41,7 +39,7 @@ public class TiltDetector {
         };
     }
 
-    private void calculateTilt(float x, float y) {
+    private void calculateTilt(float x) {
         if (System.currentTimeMillis() - timestamp > 500) {
             timestamp = System.currentTimeMillis();
             if (x < -1.0) {
